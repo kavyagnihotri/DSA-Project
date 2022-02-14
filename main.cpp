@@ -1,13 +1,6 @@
+
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define nl "\n"
-#define REP(i,a,b) for (int i = a; i < b; i++)
-#define F first
-#define S second
-#define PB push_back
-#define MP make_pair
-
 
 struct XY
 {
@@ -44,4 +37,23 @@ bool QuadTrees::insert(XY p)
     return false; //should never happen
 
 
+}
+vector<XY> QuadTress::queryRange(AABB range){
+    vector<XY> pointsInRange;
+    if(!this.boundary.inersectAABB(range)){
+        return pointtsInRange;
+    }
+    for(int p=0;p<this->points.size();p++){
+        if(range.containsPoint(this->points[p])){
+            pointsInRange.append(this->points[p]);
+        }
+    }
+    
+    if(northWeat==NULL)
+        return pointsInRange;
+    
+    pointsInRange.append(northWest->queryRange(range));
+    pointsInRange.append(southhWest->queryRange(range));
+    pointsInRange.append(southEast->queryRange(range));
+    pointsInRange.append(northEast->queryRange(range));
 }
